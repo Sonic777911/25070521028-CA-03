@@ -1,0 +1,1 @@
+(()=>{const original=window.fetch.bind(window);window.fetch=(input,init={})=>{const token=localStorage.getItem('pxToken');if(token){const headers=new Headers(init.headers||{});headers.set('Authorization','Bearer '+token);init={...init,headers}}return original(input,init)}})();

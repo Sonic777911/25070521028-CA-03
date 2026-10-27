@@ -1,0 +1,3 @@
+require('dotenv').config();
+const mongoose=require('mongoose'),Question=require('../models/Question'),words=require('./wordBank');
+(async()=>{try{await mongoose.connect(process.env.MONGODB_URI||'mongodb://127.0.0.1:27017/personax');for(let i=0;i<words.length;i++)await Question.updateOne({type:'WORD',section:'word',order:i+1},{$set:{type:'WORD',section:'word',prompt:words[i],order:i+1,dimensions:['decisionMaking','problemSolving','leadership','teamwork','communication','adaptability','responsibility','emotionalRegulation','initiative','ethicalJudgment']}},{upsert:true});console.log(`Ready: ${words.length} word-association stimuli.`);await mongoose.disconnect()}catch(e){console.error(e);process.exit(1)}})();

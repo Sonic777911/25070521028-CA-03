@@ -1,0 +1,2 @@
+const m=require('mongoose');
+module.exports=m.model('Response',new m.Schema({assessmentId:{type:m.Schema.Types.ObjectId,ref:'Assessment'},candidateId:{type:m.Schema.Types.ObjectId,ref:'Candidate'},questionId:{type:m.Schema.Types.ObjectId,ref:'Question'},sequence:Number,responseText:String,selectedOption:Number,responseTime:Number,answered:Boolean,skipped:Boolean,submittedAt:Date},{timestamps:true}));

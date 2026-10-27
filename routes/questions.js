@@ -1,0 +1,2 @@
+const r=require('express').Router(),Q=require('../models/Question');
+r.get('/',async(q,s,n)=>{try{const f={...(q.query.section?{section:q.query.section}:{}),isActive:{$ne:false}};if(q.query.section==='word'){const words=await Q.find({...f,type:'WORD'}).sort({order:1}).select('-options.scores').lean();for(let i=words.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[words[i],words[j]]=[words[j],words[i]]}return s.json(words.slice(0,60))}s.json(await Q.find(f).sort({order:1}).select('-options.scores'))}catch(e){n(e)}}); module.exports=r;

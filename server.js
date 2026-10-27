@@ -1,0 +1,11 @@
+require('dotenv').config();
+const express=require('express'),mongoose=require('mongoose'),path=require('path');
+const app=express(); app.use(express.json());
+app.get(['/','/index.html','/dashboard','/instructions','/assessment','/complete','/reviewer','/dashboard.html','/instructions.html','/assessment.html','/complete.html','/reviewer.html'],(q,s)=>s.sendFile(path.join(__dirname,'public','app','index.html')));
+app.use(express.static(path.join(__dirname,'public')));
+app.get('/api/status',(q,s)=>s.json({ok:true,database:mongoose.connection.readyState===1?'connected':'disconnected'}));
+app.use('/api/auth',require('./routes/auth'));
+for(const [route,role] of [['candidates','evaluator'],['assessments',null],['responses','candidate'],['evaluations','evaluator'],['results','evaluator']])app.use('/api/'+route,require('./middleware/auth')(role),require('./routes/'+route));
+app.use('/api/questions',require('./routes/questions'));
+app.use((e,q,s,n)=>{console.error(e);s.status(500).json({error:e.message||'Server error'});});
+mongoose.connect(process.env.MONGODB_URI||'mongodb://127.0.0.1:27017/personax').then(()=>app.listen(process.env.PORT||3000,()=>console.log('PersonaX at http://localhost:3000'))).catch(e=>{console.error('MongoDB connection failed:',e.message);process.exit(1)});
