@@ -1,6 +1,12 @@
 require('dotenv').config();const mongoose=require('mongoose'),Question=require('../models/Question'),wordBank=require('./wordBank');
 const dims=['decisionMaking','problemSolving','leadership','teamwork','communication','adaptability','responsibility','emotionalRegulation','initiative','ethicalJudgment'];
-const pictures=[{type:'STORY',section:'picture',prompt:'Study the hazy scene and write a short story about what may be happening, what led to it, and what could happen next.',image:'/images/story-user-1.png',order:1,dimensions:dims},{type:'STORY',section:'picture',prompt:'Look at the blurred scene and create a brief story with a clear main character, goal, and outcome.',image:'/images/story-user-2.png',order:2,dimensions:dims}];
+const pictures=[
+  {type:'STORY',section:'picture',prompt:'Study the hazy scene and write a short story about what may be happening, what led to it, and what could happen next.',image:'/images/story-user-1.png',order:1,dimensions:dims},
+  {type:'STORY',section:'picture',prompt:'Look at the blurred scene and create a brief story with a clear main character, goal, and outcome.',image:'/images/story-user-2.png',order:2,dimensions:dims},
+  {type:'STORY',section:'picture',prompt:'Observe the scene and write a story describing the challenge faced by the characters and how they address it.',image:'/images/story-user-3.png',order:3,dimensions:dims},
+  {type:'STORY',section:'picture',prompt:'Examine the image and write a narrative about the decision being made and its potential consequences.',image:'/images/story-user-4.png',order:4,dimensions:dims},
+  {type:'STORY',section:'picture',prompt:'Study the setting and participants in this scene. Write a story about the collaboration and resolution.',image:'/images/story-user-5.png',order:5,dimensions:dims}
+];
 const situationStems=[
   'When a teammate misses an important deadline, I would first...',
   'When two teammates disagree about a project direction, I would...',
